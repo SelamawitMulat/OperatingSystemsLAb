@@ -16,18 +16,6 @@ To develop a comprehensive system call analyzer that helps understand the relati
 5. **Return Value Interpretation** - Identifies success/failure and error conditions
 6. **Summary Report** - Displays count of each system call executed
 
-### Supported System Calls
-The analyzer focuses on analyzing the following critical system calls:
-- **open, openat** - File opening operations
-- **read, write** - I/O operations
-- **close** - File descriptor closure
-- **execve** - Program execution
-- **fork, clone** - Process creation
-- **mmap** - Memory mapping
-- **access** - Permission checking
-- **stat, fstat** - File metadata retrieval
-- **lseek** - File pointer positioning
-- **exit, exit_group** - Process termination
 
 ### Technical Implementation
 - **Language**: Bash Shell Script
@@ -45,16 +33,6 @@ The analyzer focuses on analyzing the following critical system calls:
    - Show return value and interpret success/failure
 5. Generate summary showing frequency of each system call
 
-## Group Members
-- **Team Lead/Developer**: Selam Awitmulat
-
-## Usage
-```bash
-chmod +x assign.sh
-./assign.sh
-```
-
-At the prompt, type any command (e.g., `ls`, `cat file.txt`, `grep pattern file`) and the analyzer will display detailed system call information.
 
 ## Example Output
 When executing `ls`, the analyzer displays:
@@ -70,7 +48,4 @@ When executing `ls`, the analyzer displays:
 - Performance analysis aid for identifying expensive system calls
 - Learning resource for operating systems students
 
-## Deliverables Included
-✓ Executable shell program (assign.sh)
-✓ Project description document
-✓ Comprehensive system call analysis
+
