@@ -21,6 +21,7 @@ void swap(Process *a, Process *b) {
 }
 
 // Function to sort processes by arrival time (bubble sort)
+//p - array of processes , n- number of processes
 void sortByArrival(Process p[], int n) {
 	int i, j;
 	for (i = 0; i < n - 1; i++) {
@@ -91,7 +92,7 @@ void printGanttChart(Process p[], int n) {
 
 int main() {
 	int n, i;
-	float totalWT = 0, totalTAT = 0;
+	float totalWT = 0, totalTAT = 0; //turn around
 	int sumWT = 0, sumTAT = 0;
 	float totalBurst = 0, totalTime = 0, cpuUtil = 0, throughput = 0;
 

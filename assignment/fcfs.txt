@@ -1,0 +1,101 @@
+Sample out put 
+
+selamawitmulat138@penguin:~/OperatingSystemsLAb/assignment$ ./fcfs
+Enter the number of processes (1-100): 5
+
+Process 1:
+  Enter Process ID (integer): 1
+  Enter Arrival Time (>=0): 2
+  Enter Burst Time (>0): 5
+
+Process 2:
+  Enter Process ID (integer): 2
+  Enter Arrival Time (>=0): 8
+  Enter Burst Time (>0): 2
+
+Process 3:
+  Enter Process ID (integer): 3
+  Enter Arrival Time (>=0): 10
+  Enter Burst Time (>0): 5
+
+Process 4:
+  Enter Process ID (integer): 4 
+  Enter Arrival Time (>=0): 20
+  Enter Burst Time (>0): 5
+
+Process 5:
+  Enter Process ID (integer): 5
+  Enter Arrival Time (>=0): 30
+  Enter Burst Time (>0): 2
+
+FCFS Scheduling Results:
+-------------------------------------------------------------------------------------------------------------
+| PID | Arrival Time | Burst Time | Start Time | Completion Time | Turnaround Time | Waiting Time |
+-------------------------------------------------------------------------------------------------------------
+|   1 |          2    |         5  |        2   |           7     |           5      |         0    |
+|   2 |          8    |         2  |        8   |          10     |           2      |         0    |
+|   3 |         10    |         5  |       10   |          15     |           5      |         0    |
+|   4 |         20    |         5  |       20   |          25     |           5      |         0    |
+|   5 |         30    |         2  |       30   |          32     |           2      |         0    |
+-------------------------------------------------------------------------------------------------------------
+
+================ AVERAGE TIME METRICS  ================
+
+1. AVERAGE WAITING TIME 
+Waiting Times = 0 + 0 + 0 + 0 + 0
+Sum WT = 0
+n = 5
+Average Waiting Time = 0 / 5
+Average Waiting Time = 0.00
+
+2. AVERAGE TURNAROUND TIME
+Turnaround Times = 5 + 2 + 5 + 5 + 2
+Sum TAT = 19
+n = 5
+Average Turnaround Time = 19 / 5
+Average Turnaround Time = 3.80
+===================================================================
+
+Gantt Chart:
+ -------------------------------------------------------
+| IDLE |  P1  | IDLE |  P2  |  P3  | IDLE |  P4  | IDLE |  P5  |
+ -------------------------------------------------------
+0     2     7     8     10     15     20     25     30     32
+
+================ PERFORMANCE METRICS ================
+
+1. CPU UTILIZATION 
+Total Burst Time = 19.00
+Total Time = 32.00
+CPU Idle Time = 13.00
+CPU Utilization = (Total Burst Time / Total Time) * 100
+CPU Utilization = (19.00 / 32.00) * 100
+CPU Utilization = 59.38%
+
+2. THROUGHPUT
+Number of Processes = 5
+Total Time = 32.00
+Throughput = Number of Processes / Total Time
+Throughput = 5 / 32.00
+Throughput = 0.16 processes/unit time
+=====================================================
+
+3. RESPONSE TIME 
+Response Times:
+P1: 2 - 2 = 0
+P2: 8 - 8 = 0
+P3: 10 - 10 = 0
+P4: 20 - 20 = 0
+P5: 30 - 30 = 0
+Sum of Response Times = 0
+Average Response Time = 0 / 5
+Average Response Time = 0.00
+
+4. CPU IDLE PERCENTAGE 
+CPU Idle Time = 13.00
+Total Time = 32.00
+CPU Idle % = (CPU Idle Time / Total Time) * 100
+CPU Idle % = (13.00 / 32.00) * 100
+CPU Idle % = 40.62%
+===============================================================
+selamawitmulat138@penguin:~/OperatingSystemsLAb/assignment$ 

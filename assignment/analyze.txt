@@ -1,0 +1,211 @@
+Sample Output 
+
+selamawitmulat138@penguin:~/OperatingSystemsLAb/assignment$ ./assign.sh
+==============================================
+   SYSTEM CALL ANALYZER SHELL
+   Type  Any command you want to trace
+   (Type 'exit' to quit)
+==============================================
+Selam's Shell> man
+
+==============================================
+Executing: man
+==============================================
+
+--------------------------------------
+System Call : execve
+Description: Executes a program and replaces current process
+Purpose    : Runs external programs inside the system
+Parameters  : "/usr/bin/man", ["man"], 0x7fffb74a1038 /* 41 vars */
+Parameter Breakdown:
+ - program: /usr/bin/man → executable file being executed
+ - argv: [man] → arguments passed to the program
+ - envp: 0x7fffb74a1038 /* 41 vars */ → environment variables passed to program
+Return Value: 0
+Interpretation: SUCCESS
+--------------------------------------
+
+--------------------------------------
+System Call : brk
+Description: Changes the end of the process data segment (heap)
+Purpose    : Used for dynamic memory allocation (malloc)
+Parameters  : NULL
+Parameter Breakdown:
+ - addr: NULL → query current heap end (no change made)
+Return Value: 0x55ac0268a000
+Interpretation: SUCCESS
+--------------------------------------
+
+--------------------------------------
+System Call : mmap
+Description: Maps files or devices into memory
+Purpose    : Provides efficient file/memory access
+Parameters  : NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0
+Parameter Breakdown:
+ - addr: NULL → starting memory address (NULL means OS chooses automatically)
+ - length: 8192 → size of memory region allocated
+ - protection: PROT_READ|PROT_WRITE → memory permissions (read/write/execute)
+ - flags: MAP_PRIVATE|MAP_ANONYMOUS → mapping behavior (shared/private/anonymous)
+ - fd: -1 → file descriptor (-1 means no file backing i.e., not coming from or stored in a file,just temporary RAM)
+ - offset: 0 → starting point in file
+Return Value: 0x7fce61e0f000
+Interpretation: SUCCESS
+--------------------------------------
+
+--------------------------------------
+System Call : access
+Description: Checks file permissions
+Purpose    : Verifies if a file can be accessed
+Parameters  : No such file or directory
+Parameter Breakdown:
+ - param1: No such file or directory → raw system value used by kernel
+Return Value: -1 ENOENT (No such file or directory)
+Interpretation: ERROR (system call failed)
+--------------------------------------
+
+--------------------------------------
+System Call : openat
+Description: Opens a file relative to a directory
+Purpose    : Safer file opening using directory reference
+Parameters  : No such file or directory
+Parameter Breakdown:
+ - param1: No such file or directory → directory reference (AT_FDCWD means current process directory)
+Return Value: -1 ENOENT (No such file or directory)
+Interpretation: ERROR (system call failed)
+--------------------------------------
+
+--------------------------------------
+System Call : openat
+Description: Opens a file relative to a directory
+Purpose    : Safer file opening using directory reference
+Parameters  : No such file or directory
+Parameter Breakdown:
+ - param1: No such file or directory → directory reference (AT_FDCWD means current process directory)
+Return Value: -1 ENOENT (No such file or directory)
+Interpretation: ERROR (system call failed)
+--------------------------------------
+
+--------------------------------------
+System Call : openat
+Description: Opens a file relative to a directory
+Purpose    : Safer file opening using directory reference
+Parameters  : No such file or directory
+Parameter Breakdown:
+ - param1: No such file or directory → directory reference (AT_FDCWD means current process directory)
+Return Value: -1 ENOENT (No such file or directory)
+Interpretation: ERROR (system call failed)
+--------------------------------------
+
+--------------------------------------
+System Call : openat
+Description: Opens a file relative to a directory
+Purpose    : Safer file opening using directory reference
+Parameters  : No such file or directory
+Parameter Breakdown:
+ - param1: No such file or directory → directory reference (AT_FDCWD means current process directory)
+Return Value: -1 ENOENT (No such file or directory)
+Interpretation: ERROR (system call failed)
+--------------------------------------
+
+--------------------------------------
+System Call : openat
+Description: Opens a file relative to a directory
+Purpose    : Safer file opening using directory reference
+Parameters  : No such file or directory
+Parameter Breakdown:
+ - param1: No such file or directory → directory reference (AT_FDCWD means current process directory)
+Return Value: -1 ENOENT (No such file or directory)
+Interpretation: ERROR (system call failed)
+--------------------------------------
+
+--------------------------------------
+System Call : openat
+Description: Opens a file relative to a directory
+Purpose    : Safer file opening using directory reference
+Parameters  : No such file or directory
+Parameter Breakdown:
+ - param1: No such file or directory → directory reference (AT_FDCWD means current process directory)
+Return Value: -1 ENOENT (No such file or directory)
+Interpretation: ERROR (system call failed)
+--------------------------------------
+
+--------------------------------------
+System Call : openat
+Description: Opens a file relative to a directory
+Purpose    : Safer file opening using directory reference
+Parameters  : No such file or directory
+Parameter Breakdown:
+ - param1: No such file or directory → directory reference (AT_FDCWD means current process directory)
+Return Value: -1 ENOENT (No such file or directory)
+Interpretation: ERROR (system call failed)
+--------------------------------------
+
+--------------------------------------
+System Call : openat
+Description: Opens a file relative to a directory
+Purpose    : Safer file opening using directory reference
+Parameters  : No such file or directory
+Parameter Breakdown:
+ - param1: No such file or directory → directory reference (AT_FDCWD means current process directory)
+Return Value: -1 ENOENT (No such file or directory)
+Interpretation: ERROR (system call failed)
+--------------------------------------
+
+--------------------------------------
+System Call : openat
+Description: Opens a file relative to a directory
+Purpose    : Safer file opening using directory reference
+Parameters  : AT_FDCWD, "/usr/lib/man-db/libmandb-2.11.2.so", O_RDONLY|O_CLOEXEC
+Parameter Breakdown:
+ - param1: AT_FDCWD → directory reference (AT_FDCWD means current process directory)
+ - param2: /usr/lib/man-db/libmandb-2.11.2.so → file path the system is trying to open
+ - param3: O_RDONLY|O_CLOEXEC → access mode/flags controlling read/write/exec permissions
+Return Value: 3
+Interpretation: SUCCESS
+--------------------------------------
+
+--------------------------------------
+System Call : read
+Description: Reads data from a file descriptor
+Purpose    : Retrieves data from files or input streams
+Parameters  : 3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\0\0\0\0\0\0\0"..., 832
+Parameter Breakdown:
+ - fd: 3 → file descriptor identifying the file to read from
+ - buffer: \177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\0\0\0\0\0\0\0... → memory location where data will be stored
+ - size: 832 → number of bytes requested to read
+Return Value: 832
+Interpretation: SUCCESS
+--------------------------------------
+
+--------------------------------------
+System Call : mmap
+Description: Maps files or devices into memory
+Purpose    : Provides efficient file/memory access
+Parameters  : NULL, 28976, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0
+Parameter Breakdown:
+ - addr: NULL → starting memory address (NULL means OS chooses automatically)
+ - length: 28976 → size of memory region allocated
+ - protection: PROT_READ → memory permissions (read/write/execute)
+ - flags: MAP_PRIVATE|MAP_DENYWRITE → mapping behavior (shared/private/anonymous)
+ - fd: 3 → file descriptor (-1 means no file backing i.e., not coming from or stored in a file,just temporary RAM)
+ - offset: 0 → starting point in file
+Return Value: 0x7fce61e07000
+Interpretation: SUCCESS
+--------------------------------------
+
+============= SUMMARY =============
+open → 31 times
+openat → 31 times
+read → 12 times
+write → 2 times
+close → 11 times
+execve → 1 times
+brk → 3 times
+mprotect → 9 times
+mmap → 34 times
+access → 1 times
+exit → 1 times
+exit_group → 1 times
+==================================
+
+Selam's Shell> 
