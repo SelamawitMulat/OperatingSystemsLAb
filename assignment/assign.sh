@@ -36,20 +36,32 @@ explain_syscall() {
             echo "Purpose    : Runs external programs inside the system"
             ;;
         fork)
-            echo "Description: Creates a new process"
-            echo "Purpose    : Enables multitasking by duplicating process"
+            echo "Description: Creates a new process by copying the parent process"
+            echo "Purpose    : Enables multitasking by duplicating process to run concurrently"
+            ;;
+        brk)
+            echo "Description: Changes the end of the process data segment (heap)"
+            echo "Purpose    : Used for dynamic memory allocation (malloc)"
             ;;
         clone)
-            echo "Description: Creates a process or thread"
+            echo "Description: Creates a process or thread with optional shared resources"
             echo "Purpose    : Used for lightweight process/thread creation"
             ;;
         mmap)
             echo "Description: Maps files or devices into memory"
             echo "Purpose    : Provides efficient file/memory access"
             ;;
+        munmap)
+           echo "Description: Unmaps a mapped memory region"
+           echo "Purpose    : Frees memory mapped using mmap"
+           ;;
         access)
             echo "Description: Checks file permissions"
             echo "Purpose    : Verifies if a file can be accessed"
+            ;;
+        mprotect)
+            echo "Description: Changes protection of a memory region"
+            echo "Purpose    : Controls read/write/execute permissions in memory"
             ;;
         stat)
             echo "Description: Gets file metadata using file path"
@@ -57,11 +69,11 @@ explain_syscall() {
             ;;
         fstat)
             echo "Description: Gets file metadata using file descriptor"
-            echo "Purpose    : Retrieves info of already opened file"
+            echo "Purpose    : Retrieves info of already opened file(since it uses FD and FD is given to the file after open())"
             ;;
         lseek)
-            echo "Description: Moves file pointer position"
-            echo "Purpose    : Controls where reading/writing happens in file"
+            echo "Description:  Repositions the file offset of an open file descriptor"
+            echo "Purpose    : Controls where next reading/writing happens in file"
             ;;
         exit|exit_group)
             echo "Description: Terminates a process"
@@ -83,11 +95,12 @@ explain_params() {
 
     echo "Parameter Breakdown:"
 
-    IFS=',' read -ra arr <<< "$params"
+#IFS=Internal field separator, we split the parameters by comma and store them in an array called arr.
 
+    IFS=',' read -ra arr <<< "$params"   # -r => dont treat backslashes as escape characters, -a => read into an array. 
     i=0
     for p in "${arr[@]}"; do
-        p=$(echo "$p" | xargs)
+        p=$(echo "$p" | xargs)   #xargs removes extra spaces.
 
         case $syscall in
 
@@ -125,10 +138,10 @@ explain_params() {
                         echo " - fd: $p → file descriptor to write into"
                         ;;
                     1)
-                        echo " - buffer: $p → data stored in memory to be written"
+                        echo " - buffer: $p → data stored in memory to be written (the actual data we want to write)"
                         ;;
                     2)
-                        echo " - size: $p → number of bytes written"
+                        echo " - size: $p → number of bytes to be  written"
                         ;;
                 esac
                 ;;
@@ -146,7 +159,16 @@ explain_params() {
                         ;;
                 esac
                 ;;
-
+            munmap)
+                case $i in
+                    0)
+                        echo " - addr: $p → starting address of memory region to unmap (returned by mmap)"
+                        ;;
+                    1)
+                        echo " - length: $p → size of memory region to free"
+                        ;;
+                esac
+                ;;
             mmap)
                 case $i in
                     0)
@@ -162,16 +184,51 @@ explain_params() {
                         echo " - flags: $p → mapping behavior (shared/private/anonymous)"
                         ;;
                     4)
-                        echo " - fd: $p → file descriptor (-1 means no file backing)"
+                        echo " - fd: $p → file descriptor (-1 means no file backing i.e., not coming from or stored in a file,just temporary RAM)"
                         ;;
                     5)
                         echo " - offset: $p → starting point in file"
                         ;;
                 esac
                 ;;
+            mprotect)
+                case $i in
+                    0)
+                        echo " - addr: $p → starting address of memory region"
+                        ;;
+                    1)
+                        echo " - length: $p → size of memory region to change protection"
+                        ;;
+                    2)
+                        echo " - prot: $p → new permissions (read/write/execute flags)"
+                        ;;
+               esac
+                ;;
+            brk)
+                case $i in
+                    0)
+                        if [[ "$p" == "NULL" || "$p" == "null" ]]; then
+                            echo " - addr: $p → query current heap end (no change made)"
+                        else
+                            echo " - addr: $p → new heap break (end of process memory)"
+                        fi
+                        ;;
+                esac
+                ;;
+            stat)
+                case $i in
+                    0)
+                        echo " - path: $p → file path used to fetch metadata"
+                        ;;
+                esac
+                ;;
 
-            stat|fstat)
-                echo " - param$((i+1)): $p → file metadata input used by kernel"
+            fstat)
+                case $i in
+                    0)
+                        echo " - fd: $p → file descriptor of already opened file"
+                        ;;
+                esac
                 ;;
 
             lseek)
@@ -203,7 +260,7 @@ explain_params() {
 interpret_return() {
     retval=$1
 
-    if [[ "$retval" == "-1"* ]]; then
+    if [[ "$retval" == "-1"* ]]; then  # if return value strats with -1.
         echo "Interpretation: ERROR (system call failed)"
     else
         echo "Interpretation: SUCCESS"
@@ -213,22 +270,22 @@ interpret_return() {
 # ------------------------------------------------
 # System calls to analyze
 # ------------------------------------------------
-important_calls="open openat read write close execve fork clone mmap access stat fstat lseek exit exit_group"
+important_calls="open openat read write close execve brk mnumap mprotect fork clone mmap access stat fstat lseek exit exit_group"
 
 # ------------------------------------------------
 # MAIN LOOP
 # ------------------------------------------------
 while true; do
 
-    echo -n "ourShell> "
+    echo -n "Selam's Shell> "
     read cmd
 
     if [ "$cmd" == "exit" ]; then
         echo "Exiting System Call Analyzer Shell..."
         break
     fi
-
-    if [ -z "$cmd" ]; then
+    # -z => is this thing empty???
+    if [ -z "$cmd" ]; then  # if the user just presses enter without typing any cmd , just escape that loop and ask for input again.
         continue
     fi
 
@@ -238,7 +295,7 @@ while true; do
     echo "=============================================="
     echo ""
 
-    output=$(strace -f $cmd 2>&1)
+    output=$(strace -f $cmd 2>&1)  # -f => trace child processes, 2>&1 => merge error output into  normal output
 
     count=0
 
