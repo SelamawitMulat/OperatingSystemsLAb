@@ -92,21 +92,21 @@ void printGanttChart(Process p[], int n) {
 
 int main() {
 	int n, i;
-	float totalWT = 0, totalTAT = 0; //turn around
+	float totalWT = 0, totalTAT = 0; //turn around & waiting 
 	int sumWT = 0, sumTAT = 0;
 	float totalBurst = 0, totalTime = 0, cpuUtil = 0, throughput = 0;
 
 	// Ask user for number of processes
 	do {
 		printf("Enter the number of processes (1-100): ");
-		if (scanf("%d", &n) != 1 || n < 1 || n > 100) {
+		if (scanf("%d", &n) != 1 || n < 1 || n > 100) { //!=1 means input is not valid eg, letter
 			printf("Invalid input. Please enter a number between 1 and 100.\n");
 			while (getchar() != '\n'); // clear input buffer
 			n = 0;
 		}
 	} while (n < 1 || n > 100);
 
-	Process p[100];
+	Process p[100]; // array of process p with 100 elements 
 
 	// Input process details
 	for (i = 0; i < n; i++) {

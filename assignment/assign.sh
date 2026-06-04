@@ -309,7 +309,6 @@ while true; do
                 params=$(echo "$line" | sed -n 's/.*(\(.*\)).*/\1/p')
                     # | => pipe output of one command to another
                     #sed=> stream editor 
-                
                 retval=$(echo "$line" | awk -F '= ' '{print $2}')
 
                 echo "--------------------------------------"
